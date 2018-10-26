@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Liste App</string>
     <string name="hej_verden">Hej verden!</string>
+    <string name="top_text">Jeg er øverst</string>
 </resources>
