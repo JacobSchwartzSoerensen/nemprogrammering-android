@@ -23,7 +23,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public MyRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_element, parent, false);
-        TextView v = (TextView) layout.findViewById(R.id.list_text);
+        TextView v = (TextView) layout.findViewById(R.id.list_text_header);
 
         MyViewHolder vh = new MyViewHolder(layout, v);
         return vh;
