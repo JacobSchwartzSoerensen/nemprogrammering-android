@@ -7,7 +7,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
+
+    private List<ListElementEntity> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
@@ -17,6 +22,17 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             super(l);
             mTextView = v;
         }
+    }
+
+    public MyRecyclerViewAdapter()
+    {
+        this.mDataset = new ArrayList<ListElementEntity>();
+    }
+
+    public void setmDataset(List<ListElementEntity> d)
+    {
+        this.mDataset = d;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -31,11 +47,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.mTextView.setText("Dette er en test");
+        ListElementEntity entity = this.mDataset.get(position);
+        holder.mTextView.setText(entity.header);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return this.mDataset.size();
     }
 }

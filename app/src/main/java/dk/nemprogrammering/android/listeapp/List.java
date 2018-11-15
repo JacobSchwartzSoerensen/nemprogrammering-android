@@ -1,5 +1,7 @@
 package dk.nemprogrammering.android.listeapp;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.arch.persistence.room.Room;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +24,12 @@ public class List extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        ListViewModel viewModel = ViewModelProviders.of(this).get(ListViewModel.class);
+
         MyRecyclerViewAdapter mAdapter = new MyRecyclerViewAdapter();
+
+        viewModel.getAllListElements().observe(this, entities -> mAdapter.setmDataset(entities));
+
         mRecyclerView.setAdapter(mAdapter);
     }
 }
