@@ -2,11 +2,14 @@ package dk.nemprogrammering.android.listeapp;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class List extends AppCompatActivity {
 
@@ -31,5 +34,31 @@ public class List extends AppCompatActivity {
         viewModel.getAllListElements().observe(this, entities -> mAdapter.setmDataset(entities));
 
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.list_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case R.id.add_element:
+                this.openNewElementActivity();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openNewElementActivity()
+    {
+        Intent intent = new Intent(this, EditListElement.class);
+        startActivity(intent);
     }
 }

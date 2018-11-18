@@ -5,4 +5,5 @@
     <string name="list_element_image">List element image</string>
     <string name="header">Overskirft</string>
     <string name="description">Beskrivelse</string>
+    <string name="add_element">Tilføj element</string>
 </resources>
