@@ -13,6 +13,8 @@ import android.view.MenuItem;
 
 public class List extends AppCompatActivity {
 
+    public static final String EXTRA_EDIT_ELEMENT_IS_NEW = "dk.nemprogrammering.android.EDIT_ELEMENT_IS_NEW";
+
     private static final String TAG = "List";
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -59,6 +61,7 @@ public class List extends AppCompatActivity {
     private void openNewElementActivity()
     {
         Intent intent = new Intent(this, EditListElement.class);
+        intent.putExtra(EXTRA_EDIT_ELEMENT_IS_NEW, true);
         startActivity(intent);
     }
 }
