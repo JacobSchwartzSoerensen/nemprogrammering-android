@@ -15,12 +15,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private List<ListElementEntity> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+        public TextView headerText;
+        public TextView descText;
 
-        public MyViewHolder(ConstraintLayout l, TextView v)
+        public MyViewHolder(ConstraintLayout layout)
         {
-            super(l);
-            mTextView = v;
+            super(layout);
+            headerText = (TextView) layout.findViewById(R.id.list_text_header);
+            descText = (TextView) layout.findViewById(R.id.list_text_desc);
         }
     }
 
@@ -39,16 +41,16 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public MyRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_element, parent, false);
-        TextView v = (TextView) layout.findViewById(R.id.list_text_header);
 
-        MyViewHolder vh = new MyViewHolder(layout, v);
+        MyViewHolder vh = new MyViewHolder(layout);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerViewAdapter.MyViewHolder holder, int position) {
         ListElementEntity entity = this.mDataset.get(position);
-        holder.mTextView.setText(entity.header);
+        holder.headerText.setText(entity.header);
+        holder.descText.setText(entity.desc);
     }
 
     @Override
