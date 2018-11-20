@@ -4,7 +4,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "list_elements")
 public class ListElementEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int uid;
 
     public String header;

@@ -19,7 +19,7 @@ public class ListViewModel extends AndroidViewModel
     {
         super(application);
 
-        this.db = Room.databaseBuilder(application, ListDatabase.class, "list-database").build();
+        this.db = ListDatabase.getInstance(application);
         this.listElementDao = db.listElementDao();
         this.executorService = Executors.newSingleThreadExecutor();
     }
