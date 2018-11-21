@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class List extends AppCompatActivity {
 
@@ -34,6 +35,11 @@ public class List extends AppCompatActivity {
         MyRecyclerViewAdapter mAdapter = new MyRecyclerViewAdapter();
 
         viewModel.getAllListElements().observe(this, entities -> mAdapter.setmDataset(entities));
+
+        mAdapter.setOnItemClickListener((View view, int uid) -> {
+            Intent intent = new Intent(this, EditListElement.class);
+            startActivity(intent);
+        });
 
         mRecyclerView.setAdapter(mAdapter);
     }
