@@ -15,6 +15,7 @@ import android.view.View;
 public class List extends AppCompatActivity {
 
     public static final String EXTRA_EDIT_ELEMENT_IS_NEW = "dk.nemprogrammering.android.EDIT_ELEMENT_IS_NEW";
+    public static final String EXTRA_EDIT_ELEMENT_UID = "dk.nemprogrammering.android.EXTRA_EDIT_ELEMENT_UID";
 
     private static final String TAG = "List";
     private RecyclerView mRecyclerView;
@@ -38,6 +39,8 @@ public class List extends AppCompatActivity {
 
         mAdapter.setOnItemClickListener((View view, int uid) -> {
             Intent intent = new Intent(this, EditListElement.class);
+            intent.putExtra(EXTRA_EDIT_ELEMENT_IS_NEW, false);
+            intent.putExtra(EXTRA_EDIT_ELEMENT_UID, uid);
             startActivity(intent);
         });
 
