@@ -8,4 +8,5 @@
     <string name="add_element">Tilføj element</string>
     <string name="save">Gem</string>
     <string name="cancel">Annuller</string>
+    <string name="delete">Slet</string>
 </resources>
