@@ -2,19 +2,24 @@ package dk.nemprogrammering.android.listeapp;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class EditListElement extends AppCompatActivity {
+
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private boolean isNewElement = true;
     private int uid;
     private ListViewModel viewModel;
     private ListElementEntity element;
+    private ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,15 @@ public class EditListElement extends AppCompatActivity {
                 fetchElementFromDatabase();
             }
         }
+
+        this.img = findViewById(R.id.list_element_img);
+        this.img.setOnClickListener(view -> {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (cameraIntent.resolveActivity(getPackageManager()) != null)
+            {
+                startActivityForResult(cameraIntent, this.REQUEST_IMAGE_CAPTURE);
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
