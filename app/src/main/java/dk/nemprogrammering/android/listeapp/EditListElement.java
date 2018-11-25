@@ -2,6 +2,7 @@ package dk.nemprogrammering.android.listeapp;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EditListElement extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class EditListElement extends AppCompatActivity {
     private ListViewModel viewModel;
     private ListElementEntity element;
     private ImageView img;
+
+    private String tempImgPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +52,7 @@ public class EditListElement extends AppCompatActivity {
         }
 
         this.img = findViewById(R.id.list_element_img);
-        this.img.setOnClickListener(view -> {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (cameraIntent.resolveActivity(getPackageManager()) != null)
-            {
-                startActivityForResult(cameraIntent, this.REQUEST_IMAGE_CAPTURE);
-            }
-        });
+        this.img.setOnClickListener(view -> this.openCamera());
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -71,6 +73,34 @@ public class EditListElement extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openCamera()
+    {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null)
+        {
+            String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+            String imgName = "JPEG_" + timeStamp;
+
+            File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+            File img = null;
+            try
+            {
+                img = File.createTempFile(imgName, ".jpg", dir);
+            }
+            catch (IOException e)
+            {
+                return;
+            }
+
+            this.tempImgPath = img.getAbsolutePath();
+
+            
+
+            startActivityForResult(cameraIntent, this.REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     private void deleteElement()
