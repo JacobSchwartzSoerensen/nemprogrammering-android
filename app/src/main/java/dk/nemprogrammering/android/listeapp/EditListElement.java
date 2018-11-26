@@ -1,7 +1,11 @@
 package dk.nemprogrammering.android.listeapp;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -106,6 +110,35 @@ public class EditListElement extends AppCompatActivity {
         }
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == REQUEST_IMAGE_CAPTURE)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                if (this.setImageView(this.tempImgPath))
+                {
+                    this.element.img = this.tempImgPath;
+                }
+            }
+        }
+    }
+
+    private boolean setImageView(String path)
+    {
+        File img = new File(path);
+        if (img.exists())
+        {
+            Bitmap imgBitmap = BitmapFactory.decodeFile(img.getAbsolutePath());
+            ImageView imgView = findViewById(R.id.list_element_img);
+            imgView.setImageBitmap(imgBitmap);
+
+            return true;
+        }
+
+        return false;
+    }
+
     private void deleteElement()
     {
         if (!this.isNewElement)
@@ -132,6 +165,8 @@ public class EditListElement extends AppCompatActivity {
 
             header.setText(this.element.header);
             desc.setText(this.element.desc);
+
+            this.setImageView(this.element.img);
 
             this.viewModel.getListElementById(this.uid).removeObservers(this);
         });
