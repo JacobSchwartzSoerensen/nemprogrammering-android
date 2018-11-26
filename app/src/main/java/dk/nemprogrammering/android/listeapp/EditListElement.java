@@ -2,8 +2,10 @@ package dk.nemprogrammering.android.listeapp;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -97,7 +99,8 @@ public class EditListElement extends AppCompatActivity {
 
             this.tempImgPath = img.getAbsolutePath();
 
-            
+            Uri imgURI = FileProvider.getUriForFile(this, "dk.nemprogrammering.android.listeapp.fileprovider", img);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgURI);
 
             startActivityForResult(cameraIntent, this.REQUEST_IMAGE_CAPTURE);
         }
