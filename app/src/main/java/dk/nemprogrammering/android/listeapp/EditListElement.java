@@ -56,6 +56,10 @@ public class EditListElement extends AppCompatActivity {
                 fetchElementFromDatabase();
             }
         }
+        else
+        {
+            this.element = new ListElementEntity();
+        }
 
         this.img = findViewById(R.id.list_element_img);
         this.img.setOnClickListener(view -> this.openCamera());
@@ -177,22 +181,15 @@ public class EditListElement extends AppCompatActivity {
         EditText editHeader = findViewById(R.id.edit_element_header);
         EditText editDesc = findViewById(R.id.edit_element_desc);
 
+        this.element.header = editHeader.getText().toString();
+        this.element.desc = editDesc.getText().toString();
+
         if (this.isNewElement)
         {
-            ListElementEntity element = new ListElementEntity();
-
-            element.header = editHeader.getText().toString();
-            element.desc = editDesc.getText().toString();
-
-            element.img = "";
-
             this.viewModel.insertListElements(element);
         }
         else
         {
-            this.element.header = editHeader.getText().toString();
-            this.element.desc = editDesc.getText().toString();
-
             this.viewModel.updateListElements(element);
         }
         finish();
